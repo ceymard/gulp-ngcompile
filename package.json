@@ -7,7 +7,8 @@
   "author": "Christophe Eymard <christophe.eymard@gmail.com>",
   "main": "./ngcompile.js",
   "keywords": [
-    "gulpplugin"
+    "gulpplugin",
+    "angularjs"
   ],
   "dependencies": {
     "lodash": "~2.4.1",
