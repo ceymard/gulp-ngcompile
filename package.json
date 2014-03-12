@@ -1,0 +1,19 @@
+{
+  "name": "gulp-ngcompile",
+  "description": "",
+  "version": "0.1.0",
+  "homepage": "http://github.com/ceymard/gulp-ngcompile",
+  "repository": "git://github.com/ceymard/gulp-ngcompile",
+  "author": "Christophe Eymard <christophe.eymard@gmail.com>",
+  "main": "./ngcompile.js",
+  "keywords": [
+    "gulpplugin"
+  ],
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "gulp-util": "~2.2.5"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  }
+}
