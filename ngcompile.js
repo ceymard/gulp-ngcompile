@@ -9,8 +9,7 @@ var File = gutil.File;
 module.exports = function(module_name, opt){
   if (!module_name) throw new PluginError('gulp-ngcompile',  'Missing module_name option for gulp-ngcompile');
 
-  if (!opt) opt = {};
-  if (!opt.newLine) opt.newLine = gutil.linefeed;
+  if (!opt) opt = _.merge({continuous: false}, opt);
 
   var declarants = {};
   var seen = {};
@@ -45,6 +44,7 @@ module.exports = function(module_name, opt){
   }
 
   var currently_handled = {};
+  var done_array = [];
 
   stream._transform = function(file, encoding, done) {
     if (file.isNull()) { return done(); } // ignore
@@ -75,11 +75,22 @@ module.exports = function(module_name, opt){
     // this will serve to only output this file to the stream.
     currently_handled[file.path] = true;
 
-    build_modules();
-    done()
+    // console.log('hello ' + file.path);
+    if (opt.continuous) {
+      build_modules();
+    }
+    done();
+    // done_array.push(done);
   }
 
-  var build_modules = _.debounce(function() {
+  // For non-continuous mode.
+  stream._flush = function flush(callback) {
+    if (!opt.continuous)
+      build_modules(callback);
+    // callback();
+  };
+
+  var build_modules = function build_modules (callback) {
     var dependencies = [];
     var contents = [];
     // var cant_build = false;
@@ -124,7 +135,14 @@ module.exports = function(module_name, opt){
     if (rebundle)
       gutil.log('angular application', gutil.colors.magenta(module_name), 'rebundled');
 
-  }, opt.debounce || 500);
+    // for non-continuous mode, flush the pipe.
+    if (callback)
+      callback();
+  };
+
+  if (opt.continuous)
+    // debounce to avoid rebuilding n times if n files change in a row.
+    build_modules = _.debounce(build_modules, 100);
 
   return stream;
 };

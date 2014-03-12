@@ -15,6 +15,16 @@ When bundling `'app'`, gulp-ngcompile will output the files containing `app`, `d
 
 The assembler does *not* care about where your files are and your folder structure, only about module names.
 
+Synopsis
+========
+
+`ngcompile(app_name[, options])`
+
+Options
+=======
+
+* options.continous: default *false*, pass *true* if the source of the pipeline is continuous (ie. provided by watch()).
+
 Example
 =======
 
