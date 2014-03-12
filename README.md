@@ -23,7 +23,7 @@ Synopsis
 Options
 =======
 
-* options.continous: default *false*, pass *true* if the source of the pipeline is continuous (ie. provided by watch()).
+* options.continuous: default *false*, pass *true* if the source of the pipeline is continuous (ie. provided by watch()).
 
 Example
 =======
