@@ -1,6 +1,6 @@
 {
   "name": "gulp-ngcompile",
-  "description": "",
+  "description": "AngularJS assembler with dependency tracking for gulp",
   "version": "0.1.0",
   "homepage": "http://github.com/ceymard/gulp-ngcompile",
   "repository": "git://github.com/ceymard/gulp-ngcompile",
