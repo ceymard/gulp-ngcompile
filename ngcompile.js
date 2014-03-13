@@ -94,11 +94,13 @@ module.exports = function(module_name, opt){
     var dependencies = [];
     var contents = [];
     // var cant_build = false;
+    var seen_deps = {};
 
     function add_dependencies(module_name) {
       if (module_name === 'ng')
         // special case for angular.
         return;
+      seen_deps[module_name] = true;
 
       var files = declarants[module_name];
 
@@ -108,11 +110,13 @@ module.exports = function(module_name, opt){
       }
 
       for (file in files) {
-        // console.log(seen[file].requires);
-        dependencies.splice(0, 0, file);
+        if (dependencies.indexOf(file) === -1)
+          dependencies.splice(0, 0, file);
+
         for (dep in seen[file].requires) {
-          if (_.findIndex(dependencies, dep) === -1)
-            add_dependencies(dep)
+          if (!seen_deps[dep]) {
+            add_dependencies(dep);
+          }
         }
       }
     }
