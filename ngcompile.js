@@ -13,6 +13,12 @@ module.exports = function(module_name, opt){
 
   var declarants = {};
   var seen = {};
+  var ignored = {};
+  if (opt.ignore != null) {
+    opt.ignore.forEach(function(i) {
+      ignored[i] = true;
+    });
+  }
 
   var first_file = null;
   var stream = new Stream.Transform({objectMode: true});
@@ -105,7 +111,9 @@ module.exports = function(module_name, opt){
       var files = declarants[module_name];
 
       if (!files) {
-        gutil.log('no file found for module', gutil.colors.red(module_name));
+        if (!ignored[module_name]) {
+          gutil.log('no file found for module', gutil.colors.red(module_name));
+        }
         return;
       }
 

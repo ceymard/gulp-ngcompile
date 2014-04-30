@@ -23,7 +23,9 @@ Synopsis
 Options
 =======
 
-* options.continuous: default *false*, pass *true* if the source of the pipeline is continuous (ie. provided by watch()).
+* `options.continuous`: default `false`, pass `true` if the source of the pipeline is continuous (ie. provided by watch()).
+
+* `options.ignore`: default `[]`, pass an array of module names that are expected to be missing and ignore the "no file found" warning.
 
 Example
 =======
@@ -57,7 +59,7 @@ gulp.task('build-angular-app', function () {
   var scripts = gulp.src('./src/**/*.js');
   var templates = gulp.src('./src/**/*.html')
     .pipe(ngtemplates());
-    
+
   return es.concat(scripts, templates)
     .pipe(ngcompile('app')) // app is the module we wish to assemble.
     .pipe(concat('app.js'))
