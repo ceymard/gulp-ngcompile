@@ -15,6 +15,32 @@ When bundling `'app'`, gulp-ngcompile will output the files containing `app`, `d
 
 The assembler does *not* care about where your files are and your folder structure, only about module names.
 
+Why not include angular.module('name') also ?
+---------------------------------------------
+
+I decided against doing it because I wanted to have the cleanest possible way of implementing things ; one file = one module.
+
+In particular, I wanted to avoid the possibility of having modules being split up during some refactoring process and not notice that some of the files were not being included (ie, forgotten). Also, some code can refer to an angular module without necessarily adding anything to it, and therefore be irrelevant.
+
+To split a module on several files (which I do), just create sub modules included by a bigger one, such as ;
+
+```javascript
+// bigmodule.directives.js
+var mod = angular.module('bigmodule.directives', []);
+
+mod.directive('whatever', function () { /**/ });
+
+// bigmodule.controllers.js
+var mod = angular.module('bigmodule.controllers', []);
+
+mod.directive('whatever', function () { /**/ });
+
+// bigmodule.js
+// there, just one module.
+angular.module('bigmodule', ['bigmodule.directives', 'bigmodule.controllers']);
+
+```
+
 Synopsis
 ========
 
