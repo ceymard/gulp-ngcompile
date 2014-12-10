@@ -24,7 +24,7 @@ module.exports = function(module_name, opt){
   var stream = new Stream.Transform({objectMode: true});
 
   function eval_declarations(file) {
-    var re_module = /\.module\(('[^']*'|"[^"]*")\s*,(?:\s*\[([^\]]+)\])?/g;
+    var re_module = /\.module\(('[^']*'|"[^"]*")\s*,?(?:\s*\[([^\]]+)\])?/g;
     var match = null;
 
     while (match = re_module.exec(file.contents)) {
